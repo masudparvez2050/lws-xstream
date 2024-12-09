@@ -8,13 +8,15 @@ export default function Header() {
   return (
     <header className="flex justify-between items-center mb-8">
       <div className="flex items-center space-x-8">
-        <Image
+      <Link href="/">
+          <Image
           width={500}
           height={500}
           src="/assets/logo.svg"
           alt="LWS Xstream Logo"
           className="h-6"
-        />
+        /> </Link>
+       
         <nav className=" hidden md:flex space-x-6">
           <Link href="/" className="text-color-purple font-semibold">
             TOP STREAMING

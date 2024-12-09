@@ -8,7 +8,7 @@ export default function Modal({ children }) {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    router.back();
+    router.push("/"); 
   }, [router]);
 
   const onClick = useCallback(
@@ -40,8 +40,16 @@ export default function Modal({ children }) {
     >
       <div
         ref={wrapper}
-        className=" bg-[#14181f] rounded-md p-10 md:max-w-[75%] lg:max-h-[90%] overflow-y-auto border border-color-purple"
+        className="relative bg-[#14181f] rounded-md p-10 md:max-w-[75%] lg:max-h-[90%] overflow-y-auto border border-color-purple"
       >
+       
+        <button
+          onClick={onDismiss}
+          className="absolute top-2 right-2 mr-2 pr-2 text-white text-4xl hover:text-gray-400 focus:outline-none"
+        >
+          &times;
+        </button>
+
         {children}
       </div>
     </div>
