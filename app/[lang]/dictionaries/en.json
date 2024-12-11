@@ -1,8 +1,25 @@
 {
-    "views": "Views",
-    "share": "Share",
-    "uploadedOn": "Uploaded On",
-    "save": "Save",
-    "followers": "Followers",
-    "follow": "Follow"
+     
+     "play" : "PLAY",
+     "compete" : "COMPETE",
+     "follow_popular" : "FOLLOW POPULAR",
+     "streamers" : "STREAMERS",
+     "The_best_streamers": "The best streamers gather here to have a good time, be among us, join us!",
+     "streams_of_the_day" : "Streams of the day",
+     "view_all" : "View All",
+     "you_may_like": "You may like",
+     "description" : "Description",
+     "subscribe" : "Subscribe",
+     "top_streaming" : "TOP STREAMING",
+     "games" : "GAMES",
+     "teams" : "TEAMS",
+
+     "search_placeholder" : "Search videos...",
+"no_videos_found" : "No Videos Found.",
+"_404": "404",
+"page_not_found": "Page Not Found",
+"this_video_with": "This video with this",
+"was_not_found": "id was not found",
+"page_remove" : "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+"return_home" : "Return Home"
   }

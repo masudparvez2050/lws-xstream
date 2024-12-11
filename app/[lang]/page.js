@@ -2,24 +2,36 @@ import { getVideos } from "@/data/data";
 import Image from "next/image";
 // import videos from "@/data/client/videos.json";
 import Link from "next/link";
+import { getDictionary } from "./disctionaries";
 
-export default async function Home() {
+export default async function Home({ params: { lang } }) {
   const videos = await getVideos("client");
+
+  const d = await getDictionary(lang);
+  console.log(lang);
+
   return (
-    <>
+    <div className="font-tiro">
       {" "}
       <main className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
         <div className="lg:col-span-2">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            PLAY, COMPETE,
+          <h1
+            className={`text-4xl md:text-6xl font-bold mb-4 leading-tight ${
+              lang.replace("/", "") === "bn" ? "font-tiro" : ""
+            }`}
+          >
+            {d?.play}, {d?.compete},
             <br />
-            FOLLOW POPULAR
+            {d?.follow_popular}
             <br />
-            STREAMERS
+            {d?.streamers}
           </h1>
-          <p className="text-gray-400 mb-8">
-            The best streamers gather here to have a good time, be among us,
-            join us!
+          <p
+            className={`text-gray-400 mb-8 ${
+              lang.replace("/", "") === "bn" ? "font-tiro" : ""
+            }`}
+          >
+            {d?.The_best_streamers}
           </p>
         </div>
         <div className="lg:col-span-2">
@@ -52,17 +64,28 @@ export default async function Home() {
       </main>
       <section className="mt-12">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold">Streams of the day</h2>
-          <a
-            href="#"
-            className="bg-color-gray hover:bg-opacity-80 text-sm px-4 py-2 rounded-full"
+          <h2
+            className={`text-2xl font-semibold ${
+              lang.replace("/", "") === "bn" ? "font-tiro" : ""
+            }`}
           >
-            View all
-          </a>
+            {d?.streams_of_the_day}
+          </h2>
+          <Link
+            href={`/${lang}/videos`}
+            className={`bg-color-gray hover:bg-opacity-80 text-sm px-4 py-2 rounded-full ${
+              lang.replace("/", "") === "bn" ? "font-tiro" : ""
+            }`}
+          >
+            {d?.view_all}
+          </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {videos?.map((video) => (
-            <Link key={video?.videoId} href={`/videos/${video.videoId}`}>
+            <Link
+              key={video?.videoId}
+              href={`/${lang}/videos/${video.videoId}`}
+            >
               <div className="rounded-lg overflow-hidden bg-color-gray hover:scale-105 transition-all duration-300">
                 <Image
                   src={video?.thumbnail}
@@ -80,6 +103,6 @@ export default async function Home() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

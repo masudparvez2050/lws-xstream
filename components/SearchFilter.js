@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getVideos } from "@/data/data";
+import { getDictionary } from "@/app/[lang]/disctionaries";
+import { usePathname } from "next/navigation";
 
 const SearchVideos = () => {
   const [videos, setVideos] = useState([]);
@@ -11,8 +13,24 @@ const SearchVideos = () => {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [filteredVideos, setFilteredVideos] = useState([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
+  const [dictionary, setDictionary] = useState("");
+  const pathname = usePathname();
+  const [lang, setLang] = useState(pathname.includes("bn") ? "bn" : "en");
   const searchRef = useRef(null);
+
+  useEffect(() => {
+    const currentLang = pathname.includes("bn") ? "bn" : "en";
+    setLang(currentLang);
+  }, [pathname]);
+
+  useEffect(() => {
+    const languageGet = async () => {
+      const d = await getDictionary(lang);
+      setDictionary(d);
+    };
+
+    languageGet();
+  }, [lang]);
 
   // Fetch videos data when the component mounts
   useEffect(() => {
@@ -80,8 +98,10 @@ const SearchVideos = () => {
       <div className="flex items-center space-x-2">
         <input
           type="text"
-          className="bg-color-gray rounded-full py-2 px-4 w-64 focus:outline-none focus:ring-2 focus:ring-color-purple"
-          placeholder="Search videos..."
+          className={`bg-color-gray rounded-full py-2 px-4 w-64 focus:outline-none focus:ring-2 focus:ring-color-purple ${
+            lang.replace("/", "") === "bn" ? "font-tiro" : ""
+          }`}
+          placeholder={dictionary?.search_placeholder}
           value={searchQuery}
           onFocus={handleInputFocus}
           onChange={(e) => {
@@ -131,7 +151,13 @@ const SearchVideos = () => {
               </li>
             ))
           ) : (
-            <li className="p-4 text-gray-500 text-center">No videos found.</li>
+            <li
+              className={`p-4 text-gray-500 text-center ${
+                lang.replace("/", "") === "bn" ? "font-tiro" : ""
+              }`}
+            >
+              {dictionary?.no_videos_found}
+            </li>
           )}
         </ul>
       )}

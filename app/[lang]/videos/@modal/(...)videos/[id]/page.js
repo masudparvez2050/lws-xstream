@@ -1,4 +1,5 @@
 // import videos from "@/data/client/videos.json";
+import { getDictionary } from "@/app/[lang]/disctionaries";
 import Modal from "@/components/Modal";
 import { getVideos } from "@/data/data";
 import Image from "next/image";
@@ -9,8 +10,10 @@ export default async function page({ params: { id } }) {
   const video = videos.find((video) => video.videoId === id);
   const randomVideo = [...videos].sort(() => 0.5 - Math.random()).slice(0, 5);
 
+  const d = await getDictionary(lang);
+
   return (
-    <Modal>
+    <Modal lang={lang}>
       <main className="flex flex-col lg:flex-row gap-6">
         <div className="lg:w-3/4">
           <div className="relative">
@@ -58,8 +61,10 @@ export default async function page({ params: { id } }) {
           </div> */}
           </div>
           <h1 className="text-2xl font-bold mt-4">{video?.title}</h1>
-          <details>
-            <summary>Description</summary>
+          <details
+            className={`${lang.replace("/", "") === "bn" ? "font-tiro" : ""}`}
+          >
+            <summary>{d?.description}</summary>
             <p>{video?.description}</p>
           </details>
           <div className="flex items-center space-x-4 mt-2">
@@ -74,19 +79,29 @@ export default async function page({ params: { id } }) {
             <div>
               <p className="font-semibold">{video?.channelTitle}</p>
             </div>
-            <button className="bg-color-purple hover:bg-opacity-80 text-white px-4 py-1 rounded-full text-sm ml-auto">
-              Subscribe
+            <button
+              className={`bg-color-purple hover:bg-opacity-80 text-white px-4 py-1 rounded-full text-sm ml-auto ${
+                lang.replace("/", "") === "bn" ? "font-tiro" : ""
+              }`}
+            >
+              {d?.subscribe}
             </button>
           </div>
         </div>
         <div className="lg:w-1/4">
-          <h2 className="text-xl font-semibold mb-4">You may like</h2>
+          <h2
+            className={`text-xl font-semibold mb-4 ${
+              lang.replace("/", "") === "bn" ? "font-tiro" : ""
+            }`}
+          >
+            {d?.you_may_like}
+          </h2>
           <div className="space-y-2">
             {randomVideo.map((video) => (
               <Link
                 className="flex space-y-2"
                 key={video?.videoId}
-                href={`/videos/${video?.videoId}`}
+                href={`/${lang}/videos/${video?.videoId}`}
               >
                 <div className="flex items-start space-x-4">
                   <Image

@@ -31,6 +31,10 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -38,7 +42,6 @@ export default function RootLayout({ children }) {
         <div className="bg-color-bg text-white font-exo min-h-screen h-auto">
           <div className="container mx-auto px-4 py-4">
             <Header />
-
             {children}
           </div>
         </div>

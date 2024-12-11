@@ -2,13 +2,13 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
-export default function Modal({ children }) {
+export default function Modal({ children, lang }) {
   const overlay = useRef(null);
   const wrapper = useRef(null);
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    router.push("/"); 
+    router.push(`/${lang}`);
   }, [router]);
 
   const onClick = useCallback(
@@ -42,7 +42,6 @@ export default function Modal({ children }) {
         ref={wrapper}
         className="relative bg-[#14181f] rounded-md p-10 md:max-w-[75%] lg:max-h-[90%] overflow-y-auto border border-color-purple"
       >
-       
         <button
           onClick={onDismiss}
           className="absolute top-2 right-2 mr-2 pr-2 text-white text-4xl hover:text-gray-400 focus:outline-none"

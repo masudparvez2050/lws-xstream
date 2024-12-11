@@ -15,6 +15,7 @@ module.exports = {
       fontFamily: {
         exo: ['"Exo 2"', "sans-serif"],
         play: ['"Play"', "serif"],
+        tiro: ['"Tiro Bangla"', "serif"],
       },
     },
   },
